@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by bojan on 15.4.18..
  */
 
-public class EventsDbHandler extends SQLiteOpenHelper {
+public class EventsDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     public static String DATABASE_NAME = "events.db";
 
-    public EventsDbHandler(Context context){
+    public EventsDbHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //context.deleteDatabase(DATABASE_NAME);
     }
