@@ -3,4 +3,34 @@
     <string name="app_short_name">WE</string>
     <string name="app_name_splash_screen">World Events</string>
     <string name="title_activity_main">Categories</string>
+
+    <string name="no">No</string>
+    <string name="sure">Sure</string>
+    <string name="oops">Ooops</string>
+
+    <string name="pref_location_label">Location</string>
+    <string name="pref_location_key" translatable="false">location</string>
+    <string name="pref_location_default" translatable="false">London</string>
+
+    <string name="pref_sync_interval">Sync interval</string>
+    <string name="pref_sync_interval_key" translatable="false">pref_sync_interval_key</string>
+
+    <string name="pref_radius_label">Search Radius</string>
+    <string name="pref_radius_key">radius_key</string>
+
+    <string name="pref_sync_switch_title">Allow Sync</string>
+    <string name="pref_sync_switch_key" translatable="false">pref_sync_switch_key</string>
+    <string name="pref_sync_sum">Allow app to sync data automatically</string>
+
+
+    <string name="pref_nearby_label">Turn on nerby search</string>
+    <string name="pref_nearby_switch_key" translatable="false">nearby_switch</string>
+    <string name="pref_nearby_switch_sum">Search for events near you</string>
+
+    <string name="sync_account_type">com.master.example</string>
+    <string name="content_authority">com.master.bojan.java</string>
+
+    <string name="location_disabled_message">Your Locations seems to be disabled, do you want to enable it?</string>
+    <string name="location_not_enabled">"Nearby search requires your location.Enable your location."</string>
+
 </resources>

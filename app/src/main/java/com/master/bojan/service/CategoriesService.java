@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.master.bojan.data.EventContract;
+import com.master.bojan.util.Custom;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +94,23 @@ public class CategoriesService extends IntentService {
                 JSONObject categoryJson = categoriesArray.getJSONObject(i);
                 String name = parseAmpersand(categoryJson.getString(NAME));
                 String eventfulId = categoryJson.getString(EVENTFUL_ID);
-                Boolean isPrimary = check
+                Boolean isPrimary = checkIfPrimary(eventfulId);
+                String image = null;
+                if (isPrimary) {
+                    image = getCustomImage(eventfulId);
+                }
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(EventContract.CategoryEntry.COLUMN_CATEGORY_NAME, name);
+                contentValues.put(EventContract.CategoryEntry.COLUMN_EVENTFUL_ID, eventfulId);
+                contentValues.put(EventContract.CategoryEntry.COLUMN_IMAGE_PATH, image);
+                contentValues.put(EventContract.CategoryEntry.COLUMN_IS_PRIMARY_CATEGORY, isPrimary);
+
+                categoriesVector.add(contentValues);
+            }
+            if (categoriesVector.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[categoriesVector.size()];
+                categoriesVector.toArray(cvArray);
+                this.getContentResolver().bulkInsert(EventContract.CategoryEntry.CONTENT_URI, cvArray);
             }
 
         } catch (JSONException e) {
@@ -108,14 +127,47 @@ public class CategoriesService extends IntentService {
         return parsed;
     }
 
-    private boolean checkIfPrimary(String id){
+    private boolean checkIfPrimary(String id) {
         boolean isPrimary = false;
 
-        if(Arrays.asList(Custom.primary_category_ids).contains(id)){
-            isPrimary=true;
+        if (Arrays.asList(Custom.primary_category_ids).contains(id)) {
+            isPrimary = true;
 
         }
         return isPrimary;
     }
+
+
+    private String getCustomImage(String id) {
+        String imgPath = "";
+        switch (id) {
+            case "music": {
+                imgPath = "category_music_cover";
+                break;
+            }
+            case "movies_film": {
+                imgPath = "category_movies_cover";
+                break;
+            }
+            case "sports": {
+                imgPath = "category_sports_cover";
+                break;
+            }
+            case "family_fun_kids": {
+                imgPath = "category_family_cover";
+                break;
+            }
+            case "festivals_parades": {
+                imgPath = "category_festivals_cover";
+                break;
+            }
+            case "other": {
+                imgPath = "category_more_cover";
+                break;
+            }
+        }
+        return imgPath;
+    }
+
 
 }
